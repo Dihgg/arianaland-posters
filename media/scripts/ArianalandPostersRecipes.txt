@@ -1,0 +1,62 @@
+module ArianalandPosters {
+
+    import
+    {
+        Base,
+    }
+
+    /************************ Posters ************************/
+
+    recipe Make WTF Weslley Poster
+    {
+        SheetPaper2=4,
+        keep Crayons/BluePen/Pen/Pencil/RedPen,
+
+        Result: Mov_ArianalandPosters_WTFWeslley,
+        Time: 120.0,
+
+        AnimNode: RipSheets,
+        Prop1: Source=1,
+        Sound: ClothesRipping,
+    }
+
+    recipe Make C de Apito Poster
+    {
+        SheetPaper2=4,
+        keep Crayons/BluePen/Pen/Pencil/RedPen,
+
+        Result: Mov_ArianalandPosters_CdeApito,
+        Time: 120.0,
+
+        AnimNode: RipSheets,
+        Prop1: Source=1,
+        Sound: ClothesRipping,
+    }
+
+    recipe Make É assim que acaba Poster
+    {
+        SheetPaper2=4,
+        keep Crayons/BluePen/Pen/Pencil/RedPen,
+
+        Result: Mov_ArianalandPosters_E_assim_que_acaba,
+        Time: 120.0,
+
+        AnimNode: RipSheets,
+        Prop1: Source=1,
+        Sound: ClothesRipping,
+    }
+
+    recipe Make Proibido ir de Falme Poster
+    {
+        SheetPaper2=4,
+        keep Crayons/BluePen/Pen/Pencil/RedPen,
+
+        Result: Mov_ArianalandPosters_Proibido_ir_de_Falme,
+        Time: 120.0,
+
+        AnimNode: RipSheets,
+        Prop1: Source=1,
+        Sound: ClothesRipping,
+    }
+
+}

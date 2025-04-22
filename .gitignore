@@ -2,3 +2,4 @@
 node_modules/
 *.iml
 *.code-workspace
+.DS_Store
