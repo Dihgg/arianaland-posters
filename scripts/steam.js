@@ -33,10 +33,14 @@ async function prepareSteamZip() {
     // Generate files using zipper.js directly into the mods folder
     await generateZippedFiles(modsFolder);
 
-    // Copy contents folder to temp directory
+    // Copy items from the source contents folder to the generated contents folder
     const originalContentsFolder = path.join(process.cwd(), 'contents');
     if (fs.existsSync(originalContentsFolder)) {
-        fs.copySync(originalContentsFolder, contentsFolder);
+        fs.readdirSync(originalContentsFolder).forEach(file => {
+            const srcPath = path.join(originalContentsFolder, file);
+            const destPath = path.join(projectFolder, file);
+            fs.copySync(srcPath, destPath);
+        });
     }
 
     // Remove .DS_Store files from the temp directory
