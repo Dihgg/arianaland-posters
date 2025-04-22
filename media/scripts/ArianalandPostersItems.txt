@@ -1,0 +1,26 @@
+module ArianalandPosters {
+
+	imports {
+		Base
+	}
+
+	item Mov_ArianalandPosters_WTFWeslley
+	{
+		DisplayCategory 	= Furniture,
+		Type				= Moveable,
+		Icon				= Poster,
+		Weight		  		= 0.5,
+		DisplayName			= WTF Weslley Poster,
+		WorldObjectSprite	= arianaland-posters_1,
+	}
+
+	item Mov_ArianalandPosters_CdeApito
+    {
+        DisplayCategory 	= Furniture,
+        Type				= Moveable,
+        Icon				= Poster,
+        Weight		  		= 0.5,
+        DisplayName			= C de Apito Poster,
+        WorldObjectSprite	= arianaland-posters_2,
+    }
+}

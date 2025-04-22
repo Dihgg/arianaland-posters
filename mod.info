@@ -3,3 +3,5 @@ poster=poster.png
 id=ArianalandPosters
 description=A Zomboid mod to add posters to the game
 url=https://github.com/Dihgg/arianaland-posters
+pack=arianaland-posters
+tiledef=arianaland-posters 1790
