@@ -43,4 +43,14 @@ module ArianalandPosters {
         DisplayName			= Proibido ir de Falme Poster,
         WorldObjectSprite	= arianaland-posters_6,
     }
+
+    item Mov_ArianalandPosters_Habemus_boa
+    {
+        DisplayCategory 	= Furniture,
+        Type				= Moveable,
+        Icon				= Poster,
+        Weight		  		= 0.5,
+        DisplayName			= Habemus boa Poster,
+        WorldObjectSprite	= arianaland-posters_8,
+    }
 }
