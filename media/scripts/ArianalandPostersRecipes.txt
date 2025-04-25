@@ -59,4 +59,17 @@ module ArianalandPosters {
         Sound: ClothesRipping,
     }
 
+    recipe Make Habemus Boa Poster
+    {
+        SheetPaper2=4,
+        keep Crayons/BluePen/Pen/Pencil/RedPen,
+
+        Result: Mov_ArianalandPosters_Habemus_boa,
+        Time: 120.0,
+
+        AnimNode: RipSheets,
+        Prop1: Source=1,
+        Sound: ClothesRipping,
+    }
+
 }
