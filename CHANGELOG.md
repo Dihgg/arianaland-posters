@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.7](https://github.com/Dihgg/arianaland-posters/compare/v0.0.6...v0.0.7) (2026-03-30)
+
+
+### Bug Fixes
+
+* **tooling:** ignoring dist folder ([c94ed3f](https://github.com/Dihgg/arianaland-posters/commit/c94ed3f88b20e764d2bfda22f1690413f416dd9e))
+
 ### [0.0.6](https://github.com/Dihgg/arianaland-posters/compare/v0.0.5...v0.0.6) (2026-03-30)
 
 
