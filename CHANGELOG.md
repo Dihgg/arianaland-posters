@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.6](https://github.com/Dihgg/arianaland-posters/compare/v0.0.5...v0.0.6) (2026-03-30)
+
+
+### Features
+
+* **build42:** making mod compatible with build 42 ([e054c68](https://github.com/Dihgg/arianaland-posters/commit/e054c6882d607ac93561319459e2fd954b7ccadb))
+
 ### [0.0.5](https://github.com/Dihgg/arianaland-posters/compare/v0.0.4...v0.0.5) (2025-05-02)
 
 ### [0.0.4](https://github.com/Dihgg/arianaland-posters/compare/v0.0.3...v0.0.4) (2025-04-25)
