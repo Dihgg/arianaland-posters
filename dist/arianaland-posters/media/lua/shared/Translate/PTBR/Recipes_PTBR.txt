@@ -1,0 +1,9 @@
+Recipes_PTBR = {
+
+    Recipe_MakeWTFWeslleyPoster = "Fazer poster WTF Weslley",
+    Recipe_MakeCdeApitoPoster = "Fazer poster C de Apito",
+    Recipe_MakeEAssimQueAcabaPoster = "Fazer poster E assim que acaba",
+    Recipe_MakeProibidoIrDeFalmePoster = "Fazer poster Proibido ir de Falme",
+    Recipe_MakeHabemusBoaPoster = "Fazer poster Habemus Boa",
+
+}
