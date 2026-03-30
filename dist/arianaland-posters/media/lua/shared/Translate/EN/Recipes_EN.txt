@@ -1,0 +1,9 @@
+Recipes_EN = {
+
+    Recipe_MakeWTFWeslleyPoster = "Make WTF Weslley Poster",
+    Recipe_MakeCdeApitoPoster = "Make C de Apito Poster",
+    Recipe_MakeEAssimQueAcabaPoster = "Make E assim que acaba Poster",
+    Recipe_MakeProibidoIrDeFalmePoster = "Make Proibido ir de Falme Poster",
+    Recipe_MakeHabemusBoaPoster = "Make Habemus Boa Poster",
+
+}

@@ -7,7 +7,7 @@ module ArianalandPosters {
 
     /************************ Posters ************************/
 
-    recipe Make WTF Weslley Poster
+    recipe MakeWTFWeslleyPoster
     {
         SheetPaper2=4,
         keep Crayons/BluePen/Pen/Pencil/RedPen,
@@ -20,7 +20,7 @@ module ArianalandPosters {
         Sound: ClothesRipping,
     }
 
-    recipe Make C de Apito Poster
+    recipe MakeCdeApitoPoster
     {
         SheetPaper2=4,
         keep Crayons/BluePen/Pen/Pencil/RedPen,
@@ -33,7 +33,7 @@ module ArianalandPosters {
         Sound: ClothesRipping,
     }
 
-    recipe Make É assim que acaba Poster
+    recipe MakeEAssimQueAcabaPoster
     {
         SheetPaper2=4,
         keep Crayons/BluePen/Pen/Pencil/RedPen,
@@ -46,7 +46,7 @@ module ArianalandPosters {
         Sound: ClothesRipping,
     }
 
-    recipe Make Proibido ir de Falme Poster
+    recipe MakeProibidoIrDeFalmePoster
     {
         SheetPaper2=4,
         keep Crayons/BluePen/Pen/Pencil/RedPen,
@@ -59,7 +59,7 @@ module ArianalandPosters {
         Sound: ClothesRipping,
     }
 
-    recipe Make Habemus Boa Poster
+    recipe MakeHabemusBoaPoster
     {
         SheetPaper2=4,
         keep Crayons/BluePen/Pen/Pencil/RedPen,

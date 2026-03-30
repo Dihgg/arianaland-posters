@@ -8,6 +8,7 @@ module ArianalandPosters {
 	{
 		DisplayCategory 	= Furniture,
 		Type				= Moveable,
+        ItemType			= base:moveable,
 		Icon				= Poster,
 		Weight		  		= 0.5,
 		DisplayName			= WTF Weslley Poster,
@@ -18,6 +19,7 @@ module ArianalandPosters {
     {
         DisplayCategory 	= Furniture,
         Type				= Moveable,
+        ItemType			= base:moveable,
         Icon				= Poster,
         Weight		  		= 0.5,
         DisplayName			= C de Apito Poster,
@@ -28,6 +30,7 @@ module ArianalandPosters {
     {
         DisplayCategory 	= Furniture,
         Type				= Moveable,
+        ItemType			= base:moveable,
         Icon				= Poster,
         Weight		  		= 0.5,
         DisplayName			= É assim que acaba Poster,
@@ -38,6 +41,7 @@ module ArianalandPosters {
     {
         DisplayCategory 	= Furniture,
         Type				= Moveable,
+        ItemType			= base:moveable,
         Icon				= Poster,
         Weight		  		= 0.5,
         DisplayName			= Proibido ir de Falme Poster,
@@ -48,6 +52,7 @@ module ArianalandPosters {
     {
         DisplayCategory 	= Furniture,
         Type				= Moveable,
+        ItemType			= base:moveable,
         Icon				= Poster,
         Weight		  		= 0.5,
         DisplayName			= Habemus boa Poster,

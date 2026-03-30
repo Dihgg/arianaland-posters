@@ -1,0 +1,89 @@
+module ArianalandPosters
+{
+    import
+    {
+        Base,
+    }
+
+    /************************ Posters (Build 42 craft menu) ************************/
+
+    craftRecipe MakeWTFWeslleyPoster
+    {
+        timedAction = Making,
+        time = 120,
+        Tags = AnySurfaceCraft,
+        inputs
+        {
+            item 4 [Base.SheetPaper2] mode:destroy flags[Prop1],
+            item 1 [Base.Crayons;Base.BluePen;Base.Pen;Base.Pencil;Base.RedPen] mode:keep,
+        }
+        outputs
+        {
+            item 1 ArianalandPosters.Mov_ArianalandPosters_WTFWeslley,
+        }
+    }
+
+    craftRecipe MakeCdeApitoPoster
+    {
+        timedAction = Making,
+        time = 120,
+        Tags = AnySurfaceCraft,
+        inputs
+        {
+            item 4 [Base.SheetPaper2] mode:destroy flags[Prop1],
+            item 1 [Base.Crayons;Base.BluePen;Base.Pen;Base.Pencil;Base.RedPen] mode:keep,
+        }
+        outputs
+        {
+            item 1 ArianalandPosters.Mov_ArianalandPosters_CdeApito,
+        }
+    }
+
+    craftRecipe MakeEAssimQueAcabaPoster
+    {
+        timedAction = Making,
+        time = 120,
+        Tags = AnySurfaceCraft,
+        inputs
+        {
+            item 4 [Base.SheetPaper2] mode:destroy flags[Prop1],
+            item 1 [Base.Crayons;Base.BluePen;Base.Pen;Base.Pencil;Base.RedPen] mode:keep,
+        }
+        outputs
+        {
+            item 1 ArianalandPosters.Mov_ArianalandPosters_E_assim_que_acaba,
+        }
+    }
+
+    craftRecipe MakeProibidoIrDeFalmePoster
+    {
+        timedAction = Making,
+        time = 120,
+        Tags = AnySurfaceCraft,
+        inputs
+        {
+            item 4 [Base.SheetPaper2] mode:destroy flags[Prop1],
+            item 1 [Base.Crayons;Base.BluePen;Base.Pen;Base.Pencil;Base.RedPen] mode:keep,
+        }
+        outputs
+        {
+            item 1 ArianalandPosters.Mov_ArianalandPosters_Proibido_ir_de_Falme,
+        }
+    }
+
+    craftRecipe MakeHabemusBoaPoster
+    {
+        timedAction = Making,
+        time = 120,
+        Tags = AnySurfaceCraft,
+        inputs
+        {
+            item 4 [Base.SheetPaper2] mode:destroy flags[Prop1],
+            item 1 [Base.Crayons;Base.BluePen;Base.Pen;Base.Pencil;Base.RedPen] mode:keep,
+        }
+        outputs
+        {
+            item 1 ArianalandPosters.Mov_ArianalandPosters_Habemus_boa,
+        }
+    }
+}
