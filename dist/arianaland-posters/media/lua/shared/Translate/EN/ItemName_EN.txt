@@ -1,9 +1,0 @@
-ItemName_EN = {
-
-    ItemName_ArianalandPosters.Mov_ArianalandPosters_WTFWeslley = "WTF Weslley Poster",
-    ItemName_ArianalandPosters.Mov_ArianalandPosters_CdeApito = "C de Apito Poster",
-    ItemName_ArianalandPosters.Mov_ArianalandPosters_E_assim_que_acaba = "E assim que acaba Poster",
-    ItemName_ArianalandPosters.Mov_ArianalandPosters_Proibido_ir_de_Falme = "Proibido ir de Falme Poster",
-    ItemName_ArianalandPosters.Mov_ArianalandPosters_Habemus_boa = "Habemus Boa Poster",
-
-}
