@@ -13,6 +13,8 @@
     "presteam": "npm run build",
     "steam": "node scripts/steam.js",
     "zipname": "node scripts/zipname.js"
+    "zipname": "node scripts/zipname.js",
+    "playtest": "npm run build && node scripts/playtest.js"
   },
   "repository": {
     "type": "git",
@@ -31,9 +33,10 @@
   "description": "A Zomboid mod to add posters to the game",
   "devDependencies": {
     "archiver": "^7.0.1",
+    "commander": "^14.0.3",
     "fs-extra": "^11.3.0",
     "micromatch": "^4.0.8",
     "rimraf": "^6.0.1",
-    "standard-version": "^9.5.0"
+    "standard-version": "^9.5.0",
   }
 }

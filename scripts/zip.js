@@ -2,27 +2,27 @@ const fs = require('fs-extra');
 const path = require('path');
 const os = require('os');
 const archiver = require('archiver');
-const { getZipName } = require('./utils');
+const { getInfo, distPath, copyFolder } = require('./utils');
 
 async function createZip() {
-    const packageJsonPath = path.join(process.cwd(), 'package.json');
-    const { name } = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-    const distModPath = path.join(process.cwd(), 'dist', name);
-    const tempDir = path.join(os.tmpdir(), `${name}-temp`);
-    const outputZip = getZipName();
+    const { name, zipname } = getInfo();
+    const dist = distPath();
 
-    if (!(await fs.pathExists(distModPath))) {
-        throw new Error('dist mod folder does not exist. Run npm run build first.');
+    if (!(await fs.pathExists(dist))) {
+        console.error('Error: dist folder does not exist. Run npm run build first.');
+        process.exitCode = 1;
+        return;
     }
 
+    const tempDir = path.join(os.tmpdir(), `${name}-temp`);
     await fs.ensureDir(tempDir);
-    await fs.copy(distModPath, tempDir, { overwrite: true });
+    await copyFolder(dist, tempDir);
 
-    const output = fs.createWriteStream(outputZip);
+    const output = fs.createWriteStream(zipname);
     const archive = archiver('zip', { zlib: { level: 9 } });
 
     output.on('close', () => {
-        console.info(`${outputZip} has been created.`);
+        console.info(`Zip file created successfully: ${zipname}`);
     });
 
     archive.pipe(output);
