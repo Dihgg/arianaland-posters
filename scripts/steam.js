@@ -1,47 +1,93 @@
-const fs = require('fs-extra');
-const path = require('path');
-const os = require('os');
-const archiver = require('archiver');
-const { getZipName } = require('./utils');
+const fs = require("fs-extra");
+const path = require("path");
+const os = require("os");
+const {
+	copyFolder,
+	getInfo,
+	extractFrontMatterData,
+	markdownToBbcode
+} = require("./utils");
 
-async function prepareSteamZip() {
-    const packageJsonPath = path.join(process.cwd(), 'package.json');
-    const { name } = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-    const tempPath = path.join(os.tmpdir(), `${name}-temp`);
-    const workshopRoot = path.join(tempPath, 'contents', 'mods');
-    const distPath = path.join(process.cwd(), 'dist');
-    const outputZip = getZipName().replace('.zip', '-steam.zip');
+/**
+ * Generate workshop.txt from workshop.md.
+ * @param {string} workshopMdPath
+ * @param {string} [outputTxtPath]
+ * @returns {Promise<string | null>} generated path
+ */
+async function generateWorkshopTxt(workshopMdPath, outputTxtPath) {
+	if (!(await fs.pathExists(workshopMdPath))) {
+		console.warn(`workshop.md not found at ${workshopMdPath}. Skipping workshop.txt generation.`);
+		return null;
+	}
 
-    if (!(await fs.pathExists(distPath))) {
-        throw new Error('dist folder does not exist. Run npm run build first.');
-    }
+    const { version } = getInfo();
 
-    await fs.ensureDir(workshopRoot);
+	const workshopMd = (await fs.readFile(workshopMdPath, "utf8"));
+	const { extracted, content } = extractFrontMatterData(workshopMd, {
+		id: "string",
+		title: "string",
+		tags: "array",
+		visibility: "string"
+	});
 
-    // Copy workshop metadata files to the steam package root.
-    const contentsSource = path.join(process.cwd(), 'contents');
-    if (await fs.pathExists(contentsSource)) {
-        await fs.copy(contentsSource, tempPath, { overwrite: true });
-    }
+	const { id, title, tags, visibility } = extracted;
+	const description = markdownToBbcode(content);
 
-    // Copy built mod output to the workshop mods directory.
-    await fs.copy(distPath, workshopRoot, { overwrite: true });
+	const workshopTxt = [
+		`version=${version}`,
+		`id=${id}`,
+		`title=${title}`,
+		`description=${description}`,
+		`tags=${tags}`,
+		`visibility=${visibility}`
+	].join("\n");
 
-    const output = fs.createWriteStream(outputZip);
-    const archive = archiver('zip', { zlib: { level: 9 } });
-
-    output.on('close', () => {
-        console.info(`${outputZip} has been created.`);
-    });
-
-    archive.pipe(output);
-    archive.directory(tempPath, name);
-    await archive.finalize();
-
-    await fs.remove(tempPath);
+	await fs.writeFile(outputTxtPath, `${workshopTxt}\n`, "utf8");
+	console.info(`Generated workshop.txt at ${outputTxtPath}`);
 }
 
-prepareSteamZip().catch(err => {
-    console.error('Error preparing Steam zip file:', err);
-    process.exitCode = 1;
+/**
+ * Creates a zip for steam workshop
+ */
+async function prepareSteam() {
+	const { name } = getInfo();
+	const tempPath = path.join(os.tmpdir(), `${name}-temp`);
+
+	// steam workshop expects the following structure mod-name/contents/mods/mod-name
+	const modPath = path.join(tempPath, "contents", "mods");
+
+	const workshopPath = path.join(os.homedir(), "Zomboid", "Workshop", name);
+
+	// Ensure folder structure in temp directory
+	await fs.ensureDir(modPath);
+
+	// copy preview image to temp folder root for steam workshop
+	await fs.copy(path.join(process.cwd(), "steam", "preview.png"), path.join(tempPath, "preview.png"));
+
+	// generate workshop.txt
+	await generateWorkshopTxt(
+        path.join(process.cwd(), "steam", "workshop.md"),
+        path.join(tempPath, "workshop.txt")
+    );
+
+	// Copy mod files to the expected modPath
+	await copyFolder(path.join(process.cwd(), "dist"), modPath);
+
+	// Move the temp folder to workshop
+	if((await fs.pathExists(workshopPath))) {
+		await fs.remove(workshopPath);
+		console.info(`Removed existing ${name} folder at: ${workshopPath}`);
+	}
+
+	await fs.ensureDir(workshopPath);
+
+	await copyFolder(tempPath, workshopPath);
+
+	console.info(`Steam workshop files prepared at: ${workshopPath}`);
+	
+	fs.removeSync(tempPath);
+}
+
+prepareSteam().catch(err => {
+	console.error("Error preparing Steam zip file:", err);
 });
