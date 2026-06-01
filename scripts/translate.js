@@ -5,7 +5,7 @@ const fs = require("fs-extra");
 const { Command } = require("commander");
 const translate = require("translatte");
 
-const { copyFolder, getInfo, startProgressBar, stopProgressBar, stringifyInfoFile } = require("./utils");
+const { copyFolder, getInfo, startProgressBar, stopProgressBar, stringifyInfoFile, translationsBuild41 } = require("./utils");
 
 /**
  * Converts a language code to Project Zomboid locale format.
@@ -66,15 +66,16 @@ const createOutputFolder = async locale => {
  * @param {string} outputPath the root output folder for this locale package
  */
 const generateLocaleTranslations = async (language, locale, outputPath) => {
-    const sourceEnPath = path.join(process.cwd(), "src", "translations", "EN");
+    const sourceEnPath = path.join(process.cwd(), "src", "translations-json", "EN");
     if (!(await fs.pathExists(sourceEnPath))) {
-        throw new Error("Missing EN source translations at src/translations/EN");
+        throw new Error("Missing EN source translations at src/translations-json/EN");
     }
 
     const targetTranslateDir = path.join(outputPath, "42", "media", "lua", "shared", "Translate", locale);
     await fs.ensureDir(targetTranslateDir);
+    const target41TranslateDir = path.join(outputPath, "media", "lua", "shared", "Translate");
 
-    const humanReviewedLocaleDir = path.join(process.cwd(), "src", "translations", locale);
+    const humanReviewedLocaleDir = path.join(process.cwd(), "src", "translations-json", locale);
     const allSourceFiles = await fs.readdir(sourceEnPath);
     const files = allSourceFiles.filter(file => path.extname(file).toLowerCase() === ".json");
     const filePlans = [];
@@ -126,13 +127,19 @@ const generateLocaleTranslations = async (language, locale, outputPath) => {
     }
 
     stopProgressBar(translationProgress);
+
+    // Generate Build 41 .txt translation files from the translated JSONs
+    await translationsBuild41(target41TranslateDir, locale, targetTranslateDir);
 };
 
 /**
- * Copies root assets (mod.info, images) to output root and output/42.
+ * Copies root assets (mod.info, images) to output root and output/42,
+ * and rewrites mod.info for the locale package.
  * @param {string} outputPath
+ * @param {string} locale
+ * @param {string} language
  */
-const copyRootAssets = async outputPath => {
+const copyRootAssets = async (outputPath, locale, language) => {
     const rootSource = path.join(process.cwd(), "src", "root");
     if (!(await fs.pathExists(rootSource))) {
         return;
@@ -140,6 +147,8 @@ const copyRootAssets = async outputPath => {
 
     await copyFolder(rootSource, outputPath);
     await copyFolder(rootSource, path.join(outputPath, "42"));
+
+    await writeTranslatedModInfo(outputPath, locale, language);
 };
 
 /**
@@ -149,10 +158,10 @@ const copyRootAssets = async outputPath => {
  * @param {string} language the source language code (e.g. "pt") for translating description
  */
 const writeTranslatedModInfo = async (outputPath, locale, language) => {
-    const { id, displayName, modInfo } = getInfo();
+    const { id, name, displayName, modInfo } = getInfo();
 
     const descriptionResult = await translate(
-        `Translation package for ${displayName} in ${locale}.`,
+        `Translation package for ${displayName}`,
         { to: language }
     );
     const description = descriptionResult.text;
@@ -162,7 +171,7 @@ const writeTranslatedModInfo = async (outputPath, locale, language) => {
 
     const infoContent = stringifyInfoFile({
         ...modInfo,
-        id: `${id}-${locale.toLowerCase()}`,
+        id: `${name}-${locale}`,
         name: `${displayName} - ${locale}`,
         description,
         require: requireParts.join(";"),
@@ -196,8 +205,7 @@ const run = async () => {
     const outputPath = await createOutputFolder(locale);
 
     await generateLocaleTranslations(language, locale, outputPath);
-    await copyRootAssets(outputPath);
-    await writeTranslatedModInfo(outputPath, locale, language);
+    await copyRootAssets(outputPath, locale, language);
 
     console.info(`Translation package generated: ${outputPath}`);
 };

@@ -23,6 +23,20 @@ const translationsBuild42 = async (outputPath, locale = "EN") => {
 	console.info(`${locale} Translations copied successfully.`);
 }
 
+/**
+ * 
+ * @param {string} key 
+ * @returns {string}
+ */
+const translationBaseName = (key) => {
+    switch (key.toLowerCase()) {
+        case "recipes":
+                return "Recipe";
+        default:
+            return key;
+    }
+}
+
 
 const translationsBuild41 = async (outputPath, locale = "EN", sourceDir = undefined) => {
 	sourceDir = sourceDir ?? srcPath(`src/translations-json/${locale}`);
@@ -43,7 +57,7 @@ const translationsBuild41 = async (outputPath, locale = "EN", sourceDir = undefi
 		// Transform the json into the Build 41 Lua translation table format:
 		// TableName_LOCALE = {\n\n    TableName_key = "value",\n\n}
 		const entries = [...sortedTranslations.entries()]
-			.map(([key, value]) => `    ${baseName}_${key} = "${value}",`)
+			.map(([key, value]) => `    ${translationBaseName(baseName)}_${key} = "${value}",`)
 			.join("\n");
 		const content = `${tableName} = {\n\n${entries}\n\n}\n`;
 
