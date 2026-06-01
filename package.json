@@ -1,6 +1,6 @@
 {
   "name": "arianaland-posters",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "scripts": {
     "prebuild": "npm run clean",
     "build": "node scripts/postbuild.js",
@@ -8,11 +8,13 @@
     "clean": "rimraf dist",
     "prezip": "npm run build",
     "zip": "node scripts/zip.js",
+    "zip:translation": "node scripts/zip-translation.js",
     "release": "standard-version",
     "postrelease": "npm run steam",
     "presteam": "npm run build",
     "steam": "node scripts/steam.js",
     "zipname": "node scripts/zipname.js",
+    "zipname:translation": "node scripts/zipname-translation.js",
     "translate": "node scripts/translate.js",
     "playtest": "npm run build && node scripts/playtest.js"
   },
