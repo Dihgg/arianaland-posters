@@ -1,132 +1,73 @@
-const fs = require('fs-extra');
-const path = require('path');
+const fs = require("fs-extra");
+const path = require("path");
+const { srcPath } = require("./folders");
 
-const collectJsonFiles = async dirPath => {
-    const entries = await fs.readdir(dirPath, { withFileTypes: true });
-    const files = [];
+/**
+ * Copy EN translations from src/translations-json/LOCALE to the Build 42 output folder, ensuring the directory structure is correct.
+ * @param {string} outputPath the path to the output directory for translations (e.g., 42/media/lua/shared/Translate/LOCALE)
+ * @param {string} locale the locale to copy (default: "EN")
+ */
+const translationsBuild42 = async (outputPath, locale = "EN") => {
+	const sourceDir = srcPath(`src/translations-json/${locale}`);
+	if (!(await fs.pathExists(sourceDir))) {
+		console.info(`No src/translations-json/${locale} found; skipping translations.`);
+		return;
+	}
+	await fs.ensureDir(path.join(outputPath, locale));
+	const translationFiles = await fs.readdir(sourceDir);
+	for (const file of translationFiles) {
+		const json = await fs.readJSON(path.join(sourceDir, file));
+		const sortedTranslations = new Map(Object.entries(json).sort());
+		await fs.writeJson(path.join(outputPath, locale, file), Object.fromEntries(sortedTranslations), { spaces: 4 });
+	}
+	console.info(`${locale} Translations copied successfully.`);
+}
 
-    for (const entry of entries) {
-        const fullPath = path.join(dirPath, entry.name);
-        if (entry.isDirectory()) {
-            files.push(...(await collectJsonFiles(fullPath)));
-            continue;
-        }
-
-        if (entry.isFile() && path.extname(entry.name).toLowerCase() === '.json') {
-            files.push(fullPath);
-        }
+/**
+ * 
+ * @param {string} key 
+ * @returns {string}
+ */
+const translationBaseName = (key) => {
+    switch (key.toLowerCase()) {
+        case "recipes":
+                return "Recipe";
+        default:
+            return key;
     }
+}
 
-    return files;
-};
 
-const loadTranslationSource = async sourceRoot => {
-    if (!(await fs.pathExists(sourceRoot))) {
-        return {};
-    }
+const translationsBuild41 = async (outputPath, locale = "EN", sourceDir = undefined) => {
+	sourceDir = sourceDir ?? srcPath(`src/translations-json/${locale}`);
+	if (!(await fs.pathExists(sourceDir))) {
+		console.info(`No src/translations-json/${locale} found; skipping translations.`);
+		return;
+	}
+	await fs.ensureDir(path.join(outputPath, locale));
+	const translationFiles = await fs.readdir(sourceDir);
+	for (const file of translationFiles) {
+		const json = await fs.readJSON(path.join(sourceDir, file));
+		const sortedTranslations = new Map(Object.entries(json).sort());
 
-    const jsonFiles = await collectJsonFiles(sourceRoot);
-    const source = {};
+		// Extract the filename without extension to use as the table name prefix
+		const baseName = path.basename(file, path.extname(file));
+		const tableName = `${baseName}_${locale}`;
 
-    for (const filePath of jsonFiles) {
-        const locale = path.basename(path.dirname(filePath));
-        const namespace = path.basename(filePath, '.json');
-        const content = await fs.readJson(filePath);
+		// Transform the json into the Build 41 Lua translation table format:
+		// TableName_LOCALE = {\n\n    TableName_key = "value",\n\n}
+		const entries = [...sortedTranslations.entries()]
+			.map(([key, value]) => `    ${translationBaseName(baseName)}_${key} = "${value}",`)
+			.join("\n");
+		const content = `${tableName} = {\n\n${entries}\n\n}\n`;
 
-        if (!content || typeof content !== 'object' || Array.isArray(content)) {
-            throw new Error(`Invalid translation file format: ${filePath}`);
-        }
-
-        for (const [key, value] of Object.entries(content)) {
-            if (typeof value !== 'string') {
-                throw new Error(`Invalid translation value for key '${key}' in ${filePath}. Values must be strings.`);
-            }
-        }
-
-        if (!source[locale]) {
-            source[locale] = {};
-        }
-
-        source[locale][namespace] = content;
-    }
-
-    return source;
-};
-
-const escapeLegacyValue = value => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-
-const toBuild41Key = (namespace, key) => {
-    if (namespace === 'Recipes') {
-        return `Recipe_${key}`;
-    }
-
-    if (namespace === 'ItemName') {
-        return `ItemName_${key}`;
-    }
-
-    return key;
-};
-
-const writeBuild41Translations = async ({ source, build41TranslateRoot }) => {
-    let fileCount = 0;
-
-    for (const [locale, namespaces] of Object.entries(source)) {
-        for (const [namespace, entries] of Object.entries(namespaces)) {
-            const tableName = `${namespace}_${locale}`;
-            const lines = Object.entries(entries).map(([key, value]) => {
-                const outKey = toBuild41Key(namespace, key);
-                return `    ${outKey} = \"${escapeLegacyValue(value)}\",`;
-            });
-
-            const content = `${tableName} = {\n\n${lines.join('\n')}\n\n}\n`;
-            const outputPath = path.join(build41TranslateRoot, locale, `${namespace}_${locale}.txt`);
-
-            await fs.ensureDir(path.dirname(outputPath));
-            await fs.writeFile(outputPath, content, 'utf8');
-            fileCount += 1;
-        }
-    }
-
-    return fileCount;
-};
-
-const writeBuild42Translations = async ({ source, build42TranslateRoot }) => {
-    let fileCount = 0;
-
-    for (const [locale, namespaces] of Object.entries(source)) {
-        for (const [namespace, entries] of Object.entries(namespaces)) {
-            const outputPath = path.join(build42TranslateRoot, locale, `${namespace}.json`);
-            await fs.ensureDir(path.dirname(outputPath));
-            await fs.writeJson(outputPath, entries, { spaces: 2 });
-            fileCount += 1;
-        }
-    }
-
-    return fileCount;
-};
-
-const generateTranslations = async ({ sourceRoot, build41TranslateRoot, build42TranslateRoot }) => {
-    const source = await loadTranslationSource(sourceRoot);
-    const locales = Object.keys(source);
-
-    if (locales.length === 0) {
-        return {
-            generated: false,
-            build41FileCount: 0,
-            build42FileCount: 0
-        };
-    }
-
-    const build41FileCount = await writeBuild41Translations({ source, build41TranslateRoot });
-    const build42FileCount = await writeBuild42Translations({ source, build42TranslateRoot });
-
-    return {
-        generated: true,
-        build41FileCount,
-        build42FileCount
-    };
+		// Save to outputPath/locale/FileName_LOCALE.txt
+		await fs.writeFile(path.join(outputPath, locale, `${tableName}.txt`), content, "utf8");
+	}
+	console.info(`${locale} Build 41 translations copied successfully.`);
 };
 
 module.exports = {
-    generateTranslations
+    translationsBuild42,
+    translationsBuild41,
 };
