@@ -1,6 +1,6 @@
 # Arianaland Zomboid Posters
 <p align="center">
-  <img src="./contents/preview.png">
+  <img src="./steam/preview.png">
 </p>
 
 This is a simple mod that will add a few custom (and craftable) posters for us to use in our server.
