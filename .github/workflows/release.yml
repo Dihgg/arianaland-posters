@@ -51,6 +51,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: git push --follow-tags origin HEAD
 
+      - name: Create main zip
+        run: npm run zip
+
       - name: Get latest tag
         id: get_latest_tag
         run: echo "LATEST_TAG=$(git describe --tags $(git rev-list --tags --max-count=1))" >> $GITHUB_OUTPUT
