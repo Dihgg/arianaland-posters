@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/Dihgg/arianaland-posters/compare/v1.0.0...v1.1.0) (2026-06-01)
+
+
+### Features
+
+* **deployment:** adding translation deployment workflow ([59069a8](https://github.com/Dihgg/arianaland-posters/commit/59069a84aa97a4d82bf546d14c04124b2b91b76a))
+
 ## [1.0.0](https://github.com/Dihgg/arianaland-posters/compare/v0.0.8...v1.0.0) (2026-06-01)
 
 ### [0.0.8](https://github.com/Dihgg/arianaland-posters/compare/v0.0.7...v0.0.8) (2026-06-01)
