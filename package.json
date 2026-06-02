@@ -1,6 +1,6 @@
 {
   "name": "arianaland-posters",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "scripts": {
     "prebuild": "npm run clean",
     "build": "node scripts/postbuild.js",
