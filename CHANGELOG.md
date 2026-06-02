@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/Dihgg/arianaland-posters/compare/v1.2.1...v1.3.0) (2026-06-02)
+
+
+### Features
+
+* **agent:** updating agent behavior ([6441d46](https://github.com/Dihgg/arianaland-posters/commit/6441d46ecaf414c8f542e506394bcff0d134ae90))
+
 ### [1.2.1](https://github.com/Dihgg/arianaland-posters/compare/v1.2.0...v1.2.1) (2026-06-02)
 
 
