@@ -5,21 +5,7 @@ const fs = require("fs-extra");
 const { Command } = require("commander");
 const translate = require("translatte");
 
-const { copyFolder, getInfo, startProgressBar, stopProgressBar, stringifyInfoFile, translationsBuild41 } = require("./utils");
-
-/**
- * Converts a language code to Project Zomboid locale format.
- * @param {string} language
- * @returns {string}
- */
-const getLocale = language => {
-    switch (language.toLowerCase()) {
-        case "pt":
-            return "PTBR";
-        default:
-            return language.toUpperCase();
-    }
-};
+const { copyFolder, getInfo, getLocale, startProgressBar, stopProgressBar, stringifyInfoFile, translationsBuild41 } = require("./utils");
 
 /**
  * Loads translations from an existing JSON file into a map.
@@ -152,6 +138,23 @@ const copyRootAssets = async (outputPath, locale, language) => {
 };
 
 /**
+ * Translates the package description and falls back to English if translation fails.
+ * @param {string} name the base mod/package name
+ * @param {string} locale the target locale identifier (e.g. "PTBR")
+ * @param {string} language the translation language code (e.g. "pt")
+ * @returns {Promise<string>} translated description text or a safe English fallback
+ */
+const translateDescription = async (name, locale, language) => {
+    try {
+        return (await translate(`Translation package for ${name} in ${locale}.`, { to: language })).text;
+    } catch (err) {
+        console.error("Error translating description:", err);
+        console.info(`Using fallback description for ${name} - ${locale}`);
+        return `Translation package for ${name} in ${locale}.`;
+    }
+};
+
+/**
  * Writes mod.info files for the locale package at root and inside 42/.
  * @param {string} outputPath the root of the locale package dist folder
  * @param {string} locale the locale being generated (e.g. "PTBR")
@@ -159,12 +162,7 @@ const copyRootAssets = async (outputPath, locale, language) => {
  */
 const writeTranslatedModInfo = async (outputPath, locale, language) => {
     const { id, name, displayName, modInfo } = getInfo();
-
-    const descriptionResult = await translate(
-        `Translation package for ${displayName}`,
-        { to: language }
-    );
-    const description = descriptionResult.text;
+    const description = await translateDescription(displayName, locale, language);
 
     const existingRequire = modInfo.require ? modInfo.require.split(";").map(s => s.trim()).filter(Boolean) : [];
     const requireParts = [...new Set([...existingRequire, id])];
