@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/Dihgg/arianaland-posters/compare/v1.3.0...v1.4.0) (2026-06-11)
+
+
+### Features
+
+* **translations:** adding steam stranslation ([d5d1f88](https://github.com/Dihgg/arianaland-posters/commit/d5d1f8886de5cb91f67c9fc680b507980094ea38))
+
 ## [1.3.0](https://github.com/Dihgg/arianaland-posters/compare/v1.2.1...v1.3.0) (2026-06-02)
 
 
