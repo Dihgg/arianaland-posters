@@ -2,6 +2,63 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/Dihgg/arianaland-posters/compare/v1.2.1...v1.3.0) (2026-06-02)
+
+
+### Features
+
+* **agent:** updating agent behavior ([6441d46](https://github.com/Dihgg/arianaland-posters/commit/6441d46ecaf414c8f542e506394bcff0d134ae90))
+
+### [1.2.1](https://github.com/Dihgg/arianaland-posters/compare/v1.2.0...v1.2.1) (2026-06-02)
+
+
+### Bug Fixes
+
+* **translations:** fixing translation workflow ([ebf90dd](https://github.com/Dihgg/arianaland-posters/commit/ebf90dd6c849da42d0459927768d1b21d3889fd6))
+
+## [1.2.0](https://github.com/Dihgg/arianaland-posters/compare/v1.1.2...v1.2.0) (2026-06-01)
+
+
+### Features
+
+* **deployment:** revamping translation workflow ([3278486](https://github.com/Dihgg/arianaland-posters/commit/3278486e0b0d040a55d1ffd836c9db9600605a9e))
+
+### [1.1.2](https://github.com/Dihgg/arianaland-posters/compare/v1.1.1...v1.1.2) (2026-06-01)
+
+
+### Bug Fixes
+
+* **deployment:** updating workflow ([07dfeed](https://github.com/Dihgg/arianaland-posters/commit/07dfeed829791d55e257032340760afd9e012ebf))
+
+### [1.1.1](https://github.com/Dihgg/arianaland-posters/compare/v1.1.0...v1.1.1) (2026-06-01)
+
+## [1.1.0](https://github.com/Dihgg/arianaland-posters/compare/v1.0.0...v1.1.0) (2026-06-01)
+
+
+### Features
+
+* **deployment:** adding translation deployment workflow ([59069a8](https://github.com/Dihgg/arianaland-posters/commit/59069a84aa97a4d82bf546d14c04124b2b91b76a))
+
+## [1.0.0](https://github.com/Dihgg/arianaland-posters/compare/v0.0.8...v1.0.0) (2026-06-01)
+
+### [0.0.8](https://github.com/Dihgg/arianaland-posters/compare/v0.0.7...v0.0.8) (2026-06-01)
+
+
+### Features
+
+* **build:** removing zip utils ([b1f3e76](https://github.com/Dihgg/arianaland-posters/commit/b1f3e76ad0a55da317c16e74bcbace4fbfed9a2a))
+* **build:** revamping post build script ([8fc44a6](https://github.com/Dihgg/arianaland-posters/commit/8fc44a6608d9d3b68d0cf191f826b4bd079827cb))
+* **scripts:** adding useful scripts ([91fc7ef](https://github.com/Dihgg/arianaland-posters/commit/91fc7efe884edadc23356a8aa95b4f6e9d300d17))
+* **steam:** revamp steam script ([73b3864](https://github.com/Dihgg/arianaland-posters/commit/73b38641bf0d23f15ebbc6c492abc04b7d258458))
+* **translation:** adding translation script ([9e73333](https://github.com/Dihgg/arianaland-posters/commit/9e7333335f347d8647a0e2bbdd446323d9b6bb47))
+* **translations:** revamping translation generation ([ffe8d4a](https://github.com/Dihgg/arianaland-posters/commit/ffe8d4abbdb53fcd109b4d935a6c089cb907c35a))
+* **ui:** adding quick tip jokes ([47e1001](https://github.com/Dihgg/arianaland-posters/commit/47e100161419ec21e416e63e2bc5e01d4e181be0))
+
+
+### Bug Fixes
+
+* **recipes:** making recipes compatible with both game versions ([6cc63f3](https://github.com/Dihgg/arianaland-posters/commit/6cc63f31896fa204953b4c5137ee197842b0c29f))
+
 ### [0.0.7](https://github.com/Dihgg/arianaland-posters/compare/v0.0.6...v0.0.7) (2026-03-30)
 
 
