@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/Dihgg/arianaland-posters/compare/v1.4.0...v1.4.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* **steam:** fixing translation id ([f512b39](https://github.com/Dihgg/arianaland-posters/commit/f512b39a33096fcc9d426815c9065d812a27ff04))
+
 ## [1.4.0](https://github.com/Dihgg/arianaland-posters/compare/v1.3.0...v1.4.0) (2026-06-11)
 
 
